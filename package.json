@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/evenou509/Friend_Finder#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "path": "^0.12.7"
   }
 }
