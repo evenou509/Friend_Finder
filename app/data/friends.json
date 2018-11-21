@@ -1,5 +1,4 @@
-// friends array 
-var friends = [
+[
     {
         "name": "Johnny Galecki",
         "photo": "https://www.rottentomatoes.com/celebrity/johnny_galecki/",
@@ -75,9 +74,5 @@ var friends = [
             4,
             1
         ]
-    },
-];
-
-// export the array
-
-module.exports= friends;
+    }
+]

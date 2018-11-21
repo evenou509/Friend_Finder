@@ -10,60 +10,35 @@ module.exports = function(app) {
         res,json(friendList);
     });
 
-    var matchUserTotalScore = 0;
 
-    var friendScore = [];
+    app.post('/api/friends', function(req, res){
+        // var user = req.body;
+        var matchIndex = 0;
+        var matchDifference = 0;
 
+        for (var i = 0; i < friendList.length; i++){
 
-    app.get('/api/friends', function(req, res) {
-        var currentUserScores = req.body.scores;
+            var totalDifference = 0
 
-        console.log("Current user scores: " + currentUserScores);
+            for (var j = 0; j < 10; j++){
 
-        for (var i = 0; i < friendList.length; i++) {
+                totalDifference += math.abs(friends[i].scores[j] - req.body.scores[j]);
+            }
 
-            var matchUserScores = friendList[i].scores;
+            if(totalDifference < matchDifference){
+                matchDifference = totalDifference;
+                matchIndex = i;
 
-            matchUserTotalScore = calculateUserCompatibilityScore(currentUserScores, matchUserScores);
-
-            friendScore.push(matchUserTotalScore);
-    
-        }
-
-        console.log("Array of friend scores: " + friendScore);
-
-        var index = 0;
-        var value = friendScore[0];
-
-        for (var i = 0; i < friendScore.length; i++) {
-            console.log("Value of item in array: " + friendScore[i]);
-
-            if (friendScore[i] < value) {
-                value = friendScore[i];
-                index = i;
+            } else if(i == 0){
+                matchIndex = i;
+                matchDifference = totalDifference;
             }
         }
 
-        console.log("Best friend name: " + friendList[index].name);
+        friends.push(req.body);
 
-        res,send(friendList[index]);
-
-        friendList.push(req.body);
+        res.json(friends[matchIndex]);
     });
+   
 };
 
-var totalDifference = 0;
-
-function calculateUserCompatibilityScore(currentUserScores, matchUserScores) {
-    totalDifference = 0;
-
-    for(var i = 0; i < currentUserScores.length; i++) {
-
-        totalDifference += Math.abs(currentUserScores[i] - matchUserScores[i]);
-
-    }
-
-    console.log("Final total difference for friend: " + totalDifference);
-
-    return totalDifference;
-}
