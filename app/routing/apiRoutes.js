@@ -16,7 +16,7 @@ module.exports = function(app) {
         var matchIndex = 0;
         var matchDifference = 0;
 
-        for (var i = 0; i < friendList.length; i++){
+        for (var i = 0; i < friends.length; i++){
 
             var totalDifference = 0
 
